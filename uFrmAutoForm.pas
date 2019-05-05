@@ -705,20 +705,41 @@ begin
 end;
 
 procedure TfrmAutoForm.FormCreate(Sender: TObject);
+var i:Integer;
+
 begin
   inherited;
   //sdsMetaData.Connection := Conexao;
   { TODO 5 -oRodrigo -cMelhorias : Chamar Singleton Aqui }
   sdsMetaData.Connection := DM.DBConn;
-  FGeraForm:=GeraForm.Create;
+
+
 end;
 
 procedure TfrmAutoForm.FormShow(Sender: TObject);
 var
-  i: Integer;
+  i,p,l,f: Integer;
   s:TStringList;
+  ds:TSQLDataSet;
+  nomeTabela:string;
 begin
   inherited;
+
+   for I := 0 to Self.ComponentCount-1 do
+    begin
+      if Self.Components[i] is TSQLDataSet then
+      begin
+        ds:=(Self.Components[i] as TSQLDataSet);
+        p:=Pos('FROM',UpperCase( ds.CommandText));
+        l:=Length(ds.CommandText);
+        f:= Length('FROM');
+        nomeTabela:=Copy( ds.CommandText,p+f+1,l-p-f);
+      end;
+    end;
+
+  FGeraForm:=GeraForm.Create('u'+nometabela,nomeTabela);
+
+
   pnlControls.Height := FMaxHeight;
   s:=TStringList.Create;
 
@@ -799,3 +820,4 @@ begin
 end;
 
 end.
+

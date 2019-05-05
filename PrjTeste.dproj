@@ -105,12 +105,6 @@
         <DCCReference Include="uFrmAutoForm.pas">
             <Form>frmAutoForm</Form>
         </DCCReference>
-        <DCCReference Include="modelo\uFrmAutoFormModelo.pas">
-            <Form>frmAutoFormModelo</Form>
-        </DCCReference>
-        <DCCReference Include="modelo\padrao1.pas">
-            <Form>frmAutoFormModelo1</Form>
-        </DCCReference>
         <DCCReference Include="uDM.pas">
             <Form>DM</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -192,12 +186,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="ModelSupport_PrjTeste\Model\default.txvpck" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\PrjTeste.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="PrjTeste.rsm" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win32">
                         <RemoteName>PrjTeste.rsm</RemoteName>
@@ -215,6 +204,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="ModelSupport_PrjTeste\Model\default.txvpck" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="ModelSupport_PrjTeste\Model\default.txvpck" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="ModelSupport_PrjTeste\Model\default.txaPackage" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -247,7 +242,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\PrjTeste.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

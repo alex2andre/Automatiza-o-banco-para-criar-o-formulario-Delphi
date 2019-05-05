@@ -5,7 +5,7 @@ interface
 uses
    SysUtils, Variants,
   Classes, Graphics,
-  Controls, Forms, Dialogs, StdCtrls, Model.FactoryForm,padrao1;
+  Controls, Forms, Dialogs, StdCtrls, Model.FactoryForm;
 
 type
   TForm11 = class(TForm)
@@ -34,7 +34,7 @@ var
 implementation
 
 uses
-  uFrmAutoForm,udump, uFrmAutoFormModelo;
+  uFrmAutoForm,udump;
 
 {$R *.dfm}
 
@@ -45,11 +45,11 @@ end;
 
 procedure TForm11.btn2Click(Sender: TObject);
 begin
-  if not Assigned(frmAutoFormModelo1) then
+{  if not Assigned(frmAutoFormModelo1) then
     frmAutoFormModelo1:=TfrmAutoFormModelo1.Create(Self);
 
   frmAutoFormModelo1.ShowModal;
-  FreeAndNil(frmAutoFormModelo1);
+  FreeAndNil(frmAutoFormModelo1);}
 end;
 
 procedure TForm11.Button1Click(Sender: TObject);

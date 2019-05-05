@@ -13,6 +13,8 @@ type
       contTDataSet:Integer;
       contTDataSorce:Integer;
       FcontadorComponente:Integer;
+      FNomeUnit:string;
+      FNomeFomulario:string;
       procedure CarregaLista;
       function CriaDataSet(CommandText:string):string;
       procedure CriaDataSource(DataSet,nomeDataSorce:string);
@@ -20,7 +22,7 @@ type
       procedure SetContador(aValues:integer);
 
     public
-      constructor Create;
+      constructor Create(vNomeUnit,vNomeFomulario:string);
       destructor Destroy;override;
       procedure CarregarTDBEdit(AControl: TDBEdit;DataSource:string);
       procedure CarregarTLabel(AControl: TLabel);
@@ -30,6 +32,7 @@ type
 
       procedure propertys(pMemo : TStringList; pCliente :  TObject;retorno:Boolean=true);
       procedure CorriginomeForm;
+      function Substitui(antigo,novo,tag:string):string;
       property  ContadorComponente:Integer read GetContadorComponente write SetContador;
   end;
 implementation
@@ -112,9 +115,9 @@ begin
 
        sdts:=((AControl.ListSource as TDataSource).DataSet as TSimpleDataSet);
 
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+      // geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
        nomeDataSet:= CriaDataSet(sdts.DataSet.CommandText);
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+      // geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
        CriaDataSource(nomeDataSet,nomeDataSorce);
 
 
@@ -130,7 +133,7 @@ begin
 
 
       // geraDFM.Add('end');
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\'+FNomeUnit+'.dfm');
 
       Break;
       end;
@@ -202,7 +205,7 @@ begin
 
        geraDFM.Insert(i+soma,'        end');
       // geraDFM.Add('end');
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\'+FNomeUnit+'.dfm');
 
       Break;
       end;
@@ -274,7 +277,7 @@ begin
        //soma:=soma+1;
        geraDFM.Insert(i+soma,'        end');
       // geraDFM.Add('end');
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\'+FNomeUnit+'.dfm');
 
       Break;
       end;
@@ -304,14 +307,36 @@ end;
 
 procedure GeraForm.CorriginomeForm;
 var i:Integer;
+
 begin
+
    for I := 0 to geraPas.Count-1 do
    begin
-     if pos('unit',geraPas[i]) >0 then
+     if pos('<NomeUnit>',geraPas[i]) >0 then
      begin
-      geraPas[i] :=  'unit padrao1;';
-      Exit;
+      geraPas[i] :=  'unit '+FNomeUnit+';';
      end;
+
+     if pos('<NomeForm>',geraPas[i])>0 then
+     begin
+
+        geraPas[i]:=Substitui(geraPas[i],'T'+FNomeFomulario,'<NomeForm>');
+      { if pos('<',trim( geraPas[i])) = 1 then
+       begin
+         p:=length('<NomeForm>')+espaco+1;
+         valor:=Copy(geraPas[i],p,length(geraPas[i])-p);
+         geraPas[i]:=NomeForm +valor;
+       end;
+       }
+     end;
+
+
+     if pos('<VarNomeForm>',geraPas[i])>0 then
+     begin
+
+        geraPas[i]:=Substitui(geraPas[i],FNomeFomulario,'<VarNomeForm>');
+     end;
+
 
    end;
 
@@ -489,7 +514,7 @@ begin
 
 end;
 
-constructor GeraForm.Create;
+constructor GeraForm.Create(vNomeUnit,vNomeFomulario:string);
 begin
 geraPas:=TStringList.Create;
 geraDFM:=TStringList.Create;
@@ -497,6 +522,8 @@ CarregaLista;
 contTDBEdit:=1;
 contTDataSet:=1;
 contTDataSorce:=1;
+FNomeUnit:=vNomeUnit;
+FNomeFomulario:=vNomeFomulario;
 end;
 
 destructor GeraForm.Destroy;
@@ -528,7 +555,7 @@ begin
      begin
        geraDFM.Insert(i+soma,'  DataSet.CommandText = '+QuotedStr( AControl.CommandText) );
        soma:=soma+1;
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\'+FNomeUnit+'.dfm');
 
       Break;
      end;
@@ -558,7 +585,7 @@ begin
      begin
        geraDFM.Insert(i+soma,'  CommandText = '+QuotedStr( AControl.CommandText) );
        soma:=soma+1;
-       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\padrao1.dfm');
+       geraDFM.SaveToFile(ExtractFilePath(Application.ExeName)+'\modelo\'+FNomeUnit+'.dfm');
 
       Break;
      end;
@@ -605,4 +632,21 @@ begin
   FcontadorComponente:=aValues;
 end;
 
+function GeraForm.Substitui(antigo, novo,tag: string): string;
+var espaco,tamanho:Integer;
+ pedacoInical,valor:string;
+
+begin
+       tamanho:=length(tag);
+
+       espaco:=pos(tag,antigo);
+       valor:=Copy(antigo,tamanho+espaco,length(antigo)-tamanho);
+
+       pedacoInical:=Copy(antigo,1,espaco-1);
+
+       Result:=pedacoInical + novo +valor;
+
+end;
+
 end.
+

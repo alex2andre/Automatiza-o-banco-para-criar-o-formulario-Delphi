@@ -6,8 +6,6 @@ uses
   uFrmBaseForm in 'uFrmBaseForm.pas' {FrmBaseForm},
   uFrmBaseAutoForm in 'uFrmBaseAutoForm.pas' {frmBaseAutoForm},
   uFrmAutoForm in 'uFrmAutoForm.pas' {frmAutoForm},
-  uFrmAutoFormModelo in 'modelo\uFrmAutoFormModelo.pas' {frmAutoFormModelo},
-  padrao1 in 'modelo\padrao1.pas' {frmAutoFormModelo1},
   uDM in 'uDM.pas' {DM: TDataModule},
   Model.FactoryForm in 'Model.FactoryForm.pas',
   udump in 'udump.pas',
