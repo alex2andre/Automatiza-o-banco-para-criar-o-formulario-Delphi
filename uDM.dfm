@@ -2,24 +2,14 @@ object DM: TDM
   OldCreateOrder = False
   Height = 409
   Width = 594
-  object DBConn: TSQLConnection
-    ConnectionName = 'MySQLConnection'
-    DriverName = 'MySQL'
-    LoginPrompt = False
+  object FDConn: TFDConnection
     Params.Strings = (
-      'DriverName=MySQL'
-      'HostName=localhost'
       'User_Name=root'
-      'Password='
-      'ServerCharSet='
-      'BlobSize=-1'
-      'ErrorResourceFile='
-      'LocaleCode=0000'
-      'Compressed=False'
-      'Encrypted=False'
-      'ConnectTimeout=60'
-      'Database=demoapi')
-    Left = 264
-    Top = 152
+      'Database=demoapi'
+      'DriverID=MySQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 56
+    Top = 40
   end
 end

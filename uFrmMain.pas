@@ -34,7 +34,7 @@ var
 implementation
 
 uses
-  uFrmAutoForm,udump;
+  uFrmAutoForm,udump,upessoa;//,uLANCAMENTO;
 
 {$R *.dfm}
 
@@ -45,11 +45,19 @@ end;
 
 procedure TForm11.btn2Click(Sender: TObject);
 begin
-{  if not Assigned(frmAutoFormModelo1) then
-    frmAutoFormModelo1:=TfrmAutoFormModelo1.Create(Self);
+ { if not Assigned(frmLANCAMENTO) then
+    frmLANCAMENTO:=TfrmLANCAMENTO.Create(Self);
 
-  frmAutoFormModelo1.ShowModal;
-  FreeAndNil(frmAutoFormModelo1);}
+  frmLANCAMENTO.ShowModal;
+  FreeAndNil(frmLANCAMENTO);}
+
+
+   if not Assigned(frmpessoa) then
+    frmpessoa:=Tfrmpessoa.Create(Self);
+
+  frmpessoa.ShowModal;
+  FreeAndNil(frmpessoa);
+
 end;
 
 procedure TForm11.Button1Click(Sender: TObject);

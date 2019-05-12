@@ -9,7 +9,9 @@ uses
   uDM in 'uDM.pas' {DM: TDataModule},
   Model.FactoryForm in 'Model.FactoryForm.pas',
   udump in 'udump.pas',
-  uSalvaForm in 'uSalvaForm.pas';
+  uSalvaForm in 'uSalvaForm.pas',
+  upessoa in 'modelo\upessoa.pas',
+  uLANCAMENTO in 'modelo\uLANCAMENTO.pas' {frmLANCAMENTO};
 
 {$R *.res}
 
@@ -18,5 +20,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TForm11, Form11);
+  Application.CreateForm(TfrmLANCAMENTO, frmLANCAMENTO);
   Application.Run;
 end.

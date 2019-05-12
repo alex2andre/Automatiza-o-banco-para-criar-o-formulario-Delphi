@@ -34,6 +34,8 @@ inherited <VarNomeForm>: <NomeForm>
       end
     end
     inherited TbConsulta: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 6
       ExplicitWidth = 948
       ExplicitHeight = 505
       inherited PnConsulta: TPanel
@@ -60,28 +62,12 @@ inherited <VarNomeForm>: <NomeForm>
   inherited ActionList1: TActionList
     Left = 560
   end
-  object sdsMetaData: TSimpleDataSet [4]
-    Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    PacketRecords = 0
-    Params = <>
-    Left = 312
-    Top = 152
-  end
-  object sqAutoForm: TSQLDataSet [5]
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = DM.DBConn
-    Left = 264
-    Top = 272
-  end
-  object dspAutoForm: TDataSetProvider [6]
-    DataSet = sqAutoForm
+  object dspAutoForm: TDataSetProvider [4]
+     DataSet = qryAutoForm 
     Left = 336
     Top = 272
   end
-  object cdsAutoForm: TClientDataSet [7]
+  object cdsAutoForm: TClientDataSet [5]
     Aggregates = <>
     Params = <>
     ProviderName = 'dspAutoForm'
@@ -96,5 +82,10 @@ inherited <VarNomeForm>: <NomeForm>
   inherited SaveDlgExport: TSaveDialog
     Left = 480
     Top = 344
+  end
+  object qryAutoForm: TFDQuery
+    Connection = DM.FDConn
+    Left = 188
+    Top = 239
   end
 end

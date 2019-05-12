@@ -1,0 +1,536 @@
+TfrmAutoForm
+0TTimer = FadeIn
+1TTimer = FadeOut
+2TPanel = PnTitulo
+3TSpeedButton = SpeedButton2
+4TSpeedButton = SpeedButton3
+5TSpeedButton = SpeedButton4
+6TSpeedButton = SpeedButton9
+7TLabel = lblTitulo
+8TPageControl = Pc
+9TTabSheet = TbCadastro
+10TPanel = pnlControls
+11TTabSheet = TbConsulta
+12TPanel = PnConsulta
+13TButtonedEdit = EdtValorPesquisa
+14TStatusBar = StatusBar1
+15TDBGrid = DBGrid1
+16TDataSetProvider = dspAutoForm
+17TClientDataSet = cdsAutoForm
+18TDataSource = dsAutoForm
+19TActionList = ActionList1
+20TAction = Ac_Incluir
+21TAction = Ac_Excluir
+22TAction = Ac_Alterar
+23TAction = Ac_Confirmar
+24TAction = Ac_Fechar
+25TImageList = ImageList1
+26TSaveDialog = SaveDlgExport
+27TFDMemTable = mtMetaData1
+28TFDQuery = qryAutoForm
+29TFDQuery = FDQuery1
+30TDBEdit = 
+31TLabel = 
+32TDBCheckBox = 
+33TLabel = 
+----------------------
+0TLabel
+ 
+Align:TAlign=alNone
+Alignment:TAlignment=taLeftJustify
+Anchors:TAnchors=[akLeft,akTop]
+AutoSize:Boolean=True
+BiDiMode:TBiDiMode=bdLeftToRight
+Caption:TCaption=Informe seu nome aqui
+Color:TColor=-16777201
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C150)
+DragCursor:TCursor=-12
+DragKind:TDragKind=dkDrag
+DragMode:TDragMode=dmManual
+EllipsisPosition:TEllipsisPosition=epNone
+Enabled:Boolean=True
+FocusControl:TWinControl=(empty)
+Font:TFont=(TFont @ 03B48F60)
+GlowSize:Integer=0
+ParentBiDiMode:Boolean=True
+ParentColor:Boolean=True
+ParentFont:Boolean=True
+ParentShowHint:Boolean=True
+PopupMenu:TPopupMenu=(empty)
+ShowAccelChar:Boolean=True
+ShowHint:Boolean=True
+Touch:TTouchManager=(TTouchManager @ 0605C1A0)
+Transparent:Boolean=True
+Layout:TTextLayout=tlTop
+Visible:Boolean=True
+WordWrap:Boolean=False
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnContextPopup:TContextPopupEvent = procedure(Sender: TObject; MousePos: TPoint; var Handled: Boolean) of object=(empty)
+OnDblClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnDragDrop:TDragDropEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer) of object=(empty)
+OnDragOver:TDragOverEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer; State: TDragState; var Accept: Boolean) of object=(empty)
+OnEndDock:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEndDrag:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+OnMouseActivate:TMouseActivateEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer; HitTest: Integer; var MouseActivate: TMouseActivate) of object=(empty)
+OnMouseDown:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseMove:TMouseMoveEvent = procedure(Sender: TObject; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseUp:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseLeave:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnStartDock:TStartDockEvent = procedure(Sender: TObject; var DragObject: TDragDockObject) of object=(empty)
+OnStartDrag:TStartDragEvent = procedure(Sender: TObject; var DragObject: TDragObject) of object=(empty)
+Caption:TCaption=Informe seu nome aqui
+Canvas:TCanvas=(TControlCanvas @ 03BCF800)
+GlowSize:Integer=0
+Enabled:Boolean=True
+Action:TBasicAction=(empty)
+Align:TAlign=alNone
+Anchors:TAnchors=[akLeft,akTop]
+BiDiMode:TBiDiMode=bdLeftToRight
+BoundsRect:TRect=(record)
+ClientHeight:Integer=23
+ClientOrigin:TPoint=(record)
+ClientRect:TRect=(record)
+ClientWidth:Integer=239
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C150)
+ControlState:TControlState=[]
+ControlStyle:TControlStyle=[csCaptureMouse,csClickEvents,csSetCaption,csDoubleClicks,csReplicatable,csGestures]
+CurrentPPI:Integer=120
+DockOrientation:TDockOrientation=doNoOrient
+ExplicitLeft:Integer=10
+ExplicitTop:Integer=10
+ExplicitWidth:Integer=239
+ExplicitHeight:Integer=23
+Floating:Boolean=False
+FloatingDockSiteClass:TWinControlClass=(class 'TCustomDockForm' @ 00623DA0)
+HostDockSite:TWinControl=(empty)
+LRDockWidth:Integer=239
+ScaleFactor:Single=1,25
+ShowHint:Boolean=True
+TBDockHeight:Integer=23
+Touch:TTouchManager=(TTouchManager @ 0605C1A0)
+UndockHeight:Integer=23
+UndockWidth:Integer=239
+Visible:Boolean=True
+WindowProc:TWndMethod = procedure(var Message: TMessage) of object=(method code=005620C0, data=03B58720)
+Parent:TWinControl=(TPanel @ 03BD6B50)
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+AlignWithMargins:Boolean=False
+Left:Integer=10
+Top:Integer=10
+Width:Integer=239
+Height:Integer=23
+Cursor:TCursor=0
+Hint:string=
+HelpType:THelpType=htContext
+HelpKeyword:string=
+HelpContext:THelpContext=0
+Margins:TMargins=(TMargins @ 0605C178)
+CustomHint:TCustomHint=(empty)
+ParentCustomHint:Boolean=True
+ComObject:IInterface=
+ComponentCount:Integer=0
+ComponentIndex:Integer=31
+ComponentState:TComponentState=[]
+ComponentStyle:TComponentStyle=[csInheritable]
+DesignInfo:Integer=0
+Owner:TComponent=(TfrmAutoForm @ 0607CEF0)
+VCLComObject:Pointer=(empty)
+Observers:TObservers=(TObservers @ 03C04FB0)
+Name:TComponentName=
+Tag:NativeInt=0
+1TLabel
+ 
+Align:TAlign=alNone
+Alignment:TAlignment=taLeftJustify
+Anchors:TAnchors=[akLeft,akTop]
+AutoSize:Boolean=True
+BiDiMode:TBiDiMode=bdLeftToRight
+Caption:TCaption=Ativo
+Color:TColor=-16777201
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C2B8)
+DragCursor:TCursor=-12
+DragKind:TDragKind=dkDrag
+DragMode:TDragMode=dmManual
+EllipsisPosition:TEllipsisPosition=epNone
+Enabled:Boolean=True
+FocusControl:TWinControl=(empty)
+Font:TFont=(TFont @ 03B48FC0)
+GlowSize:Integer=0
+ParentBiDiMode:Boolean=True
+ParentColor:Boolean=True
+ParentFont:Boolean=True
+ParentShowHint:Boolean=True
+PopupMenu:TPopupMenu=(empty)
+ShowAccelChar:Boolean=True
+ShowHint:Boolean=True
+Touch:TTouchManager=(TTouchManager @ 0605C308)
+Transparent:Boolean=True
+Layout:TTextLayout=tlTop
+Visible:Boolean=True
+WordWrap:Boolean=False
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnContextPopup:TContextPopupEvent = procedure(Sender: TObject; MousePos: TPoint; var Handled: Boolean) of object=(empty)
+OnDblClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnDragDrop:TDragDropEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer) of object=(empty)
+OnDragOver:TDragOverEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer; State: TDragState; var Accept: Boolean) of object=(empty)
+OnEndDock:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEndDrag:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+OnMouseActivate:TMouseActivateEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer; HitTest: Integer; var MouseActivate: TMouseActivate) of object=(empty)
+OnMouseDown:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseMove:TMouseMoveEvent = procedure(Sender: TObject; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseUp:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseLeave:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnStartDock:TStartDockEvent = procedure(Sender: TObject; var DragObject: TDragDockObject) of object=(empty)
+OnStartDrag:TStartDragEvent = procedure(Sender: TObject; var DragObject: TDragObject) of object=(empty)
+Caption:TCaption=Ativo
+Canvas:TCanvas=(TControlCanvas @ 03BCF100)
+GlowSize:Integer=0
+Enabled:Boolean=True
+Action:TBasicAction=(empty)
+Align:TAlign=alNone
+Anchors:TAnchors=[akLeft,akTop]
+BiDiMode:TBiDiMode=bdLeftToRight
+BoundsRect:TRect=(record)
+ClientHeight:Integer=23
+ClientOrigin:TPoint=(record)
+ClientRect:TRect=(record)
+ClientWidth:Integer=53
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C2B8)
+ControlState:TControlState=[]
+ControlStyle:TControlStyle=[csCaptureMouse,csClickEvents,csSetCaption,csDoubleClicks,csReplicatable,csGestures]
+CurrentPPI:Integer=120
+DockOrientation:TDockOrientation=doNoOrient
+ExplicitLeft:Integer=320
+ExplicitTop:Integer=10
+ExplicitWidth:Integer=53
+ExplicitHeight:Integer=23
+Floating:Boolean=False
+FloatingDockSiteClass:TWinControlClass=(class 'TCustomDockForm' @ 00623DA0)
+HostDockSite:TWinControl=(empty)
+LRDockWidth:Integer=53
+ScaleFactor:Single=1,25
+ShowHint:Boolean=True
+TBDockHeight:Integer=23
+Touch:TTouchManager=(TTouchManager @ 0605C308)
+UndockHeight:Integer=23
+UndockWidth:Integer=53
+Visible:Boolean=True
+WindowProc:TWndMethod = procedure(var Message: TMessage) of object=(method code=005620C0, data=03B58930)
+Parent:TWinControl=(TPanel @ 03BD6B50)
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+AlignWithMargins:Boolean=False
+Left:Integer=320
+Top:Integer=10
+Width:Integer=53
+Height:Integer=23
+Cursor:TCursor=0
+Hint:string=
+HelpType:THelpType=htContext
+HelpKeyword:string=
+HelpContext:THelpContext=0
+Margins:TMargins=(TMargins @ 0605C2E0)
+CustomHint:TCustomHint=(empty)
+ParentCustomHint:Boolean=True
+ComObject:IInterface=
+ComponentCount:Integer=0
+ComponentIndex:Integer=33
+ComponentState:TComponentState=[]
+ComponentStyle:TComponentStyle=[csInheritable]
+DesignInfo:Integer=0
+Owner:TComponent=(TfrmAutoForm @ 0607CEF0)
+VCLComObject:Pointer=(empty)
+Observers:TObservers=(TObservers @ 03C04F20)
+Name:TComponentName=
+Tag:NativeInt=0
+2TDBEdit
+ 
+Field:TField=(TStringField @ 0608D390)
+Align:TAlign=alNone
+Anchors:TAnchors=[akLeft,akTop]
+AutoSelect:Boolean=True
+AutoSize:Boolean=True
+BevelEdges:TBevelEdges=[beLeft,beTop,beRight,beBottom]
+BevelInner:TBevelCut=bvRaised
+BevelOuter:TBevelCut=bvLowered
+BevelKind:TBevelKind=bkFlat
+BevelWidth:TBevelWidth=1
+BiDiMode:TBiDiMode=bdLeftToRight
+BorderStyle:TBorderStyle=bsNone
+CharCase:TEditCharCase=ecNormal
+Color:TColor=-16777211
+Constraints:TSizeConstraints=(TSizeConstraints @ 03C1F240)
+Ctl3D:Boolean=True
+DataField:string=nome
+DataSource:TDataSource=(TDataSource @ 03BCF640)
+DragCursor:TCursor=-12
+DragKind:TDragKind=dkDrag
+DragMode:TDragMode=dmManual
+Enabled:Boolean=True
+Font:TFont=(TFont @ 03B48F30)
+ImeMode:TImeMode=imDontCare
+ImeName:TImeName=
+MaxLength:Integer=0
+ParentBiDiMode:Boolean=True
+ParentColor:Boolean=False
+ParentCtl3D:Boolean=True
+ParentFont:Boolean=True
+ParentShowHint:Boolean=True
+PasswordChar:Char= 
+PopupMenu:TPopupMenu=(empty)
+ReadOnly:Boolean=False
+ShowHint:Boolean=True
+TabOrder:TTabOrder=0
+TabStop:Boolean=True
+Touch:TTouchManager=(TTouchManager @ 03C1EE58)
+Visible:Boolean=True
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnChange:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnContextPopup:TContextPopupEvent = procedure(Sender: TObject; MousePos: TPoint; var Handled: Boolean) of object=(empty)
+OnDblClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnDragDrop:TDragDropEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer) of object=(empty)
+OnDragOver:TDragOverEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer; State: TDragState; var Accept: Boolean) of object=(empty)
+OnEndDock:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEndDrag:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnExit:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+OnKeyDown:TKeyEvent = procedure(Sender: TObject; var Key: Word; Shift: TShiftState) of object=(empty)
+OnKeyPress:TKeyPressEvent = procedure(Sender: TObject; var Key: Char) of object=(empty)
+OnKeyUp:TKeyEvent = procedure(Sender: TObject; var Key: Word; Shift: TShiftState) of object=(empty)
+OnMouseActivate:TMouseActivateEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer; HitTest: Integer; var MouseActivate: TMouseActivate) of object=(empty)
+OnMouseDown:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseLeave:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseMove:TMouseMoveEvent = procedure(Sender: TObject; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseUp:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnStartDock:TStartDockEvent = procedure(Sender: TObject; var DragObject: TDragDockObject) of object=(empty)
+OnStartDrag:TStartDragEvent = procedure(Sender: TObject; var DragObject: TDragObject) of object=(empty)
+IsMasked:Boolean=False
+EditText:string=João Silva
+Text:TMaskedText=João Silva
+Alignment:TAlignment=taLeftJustify
+CanUndo:Boolean=False
+Modified:Boolean=False
+ReadOnly:Boolean=True
+SelLength:Integer=0
+SelStart:Integer=0
+SelText:string=
+Text:TCaption=João Silva
+TextHint:string=
+TabStop:Boolean=True
+DockClientCount:Integer=0
+DockSite:Boolean=False
+DockManager:IDockManager=(empty)
+DoubleBuffered:Boolean=False
+AlignDisabled:Boolean=False
+MouseInClient:Boolean=False
+VisibleDockClientCount:Integer=0
+Brush:TBrush=(TBrush @ 03C008A0)
+ControlCount:Integer=0
+Handle:HWND=203832
+Padding:TPadding=(TPadding @ 03C1EDE0)
+ParentDoubleBuffered:Boolean=True
+ParentWindow:HWND=0
+Showing:Boolean=True
+TabOrder:TTabOrder=0
+TabStop:Boolean=True
+UseDockManager:Boolean=False
+Enabled:Boolean=True
+Action:TBasicAction=(empty)
+Align:TAlign=alNone
+Anchors:TAnchors=[akLeft,akTop]
+BiDiMode:TBiDiMode=bdLeftToRight
+BoundsRect:TRect=(record)
+ClientHeight:Integer=26
+ClientOrigin:TPoint=(record)
+ClientRect:TRect=(record)
+ClientWidth:Integer=296
+Constraints:TSizeConstraints=(TSizeConstraints @ 03C1F240)
+ControlState:TControlState=[]
+ControlStyle:TControlStyle=[csClickEvents,csSetCaption,csDoubleClicks,csReplicatable,csPannable]
+CurrentPPI:Integer=120
+DockOrientation:TDockOrientation=doNoOrient
+ExplicitLeft:Integer=10
+ExplicitTop:Integer=36
+ExplicitWidth:Integer=300
+ExplicitHeight:Integer=30
+Floating:Boolean=False
+FloatingDockSiteClass:TWinControlClass=(class 'TCustomDockForm' @ 00623DA0)
+HostDockSite:TWinControl=(empty)
+LRDockWidth:Integer=300
+ScaleFactor:Single=1,25
+ShowHint:Boolean=True
+TBDockHeight:Integer=30
+Touch:TTouchManager=(TTouchManager @ 03C1EE58)
+UndockHeight:Integer=30
+UndockWidth:Integer=300
+Visible:Boolean=True
+WindowProc:TWndMethod = procedure(var Message: TMessage) of object=(method code=00566944, data=03BB2740)
+Parent:TWinControl=(TPanel @ 03BD6B50)
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+AlignWithMargins:Boolean=False
+Left:Integer=10
+Top:Integer=36
+Width:Integer=300
+Height:Integer=30
+Cursor:TCursor=0
+Hint:string=
+HelpType:THelpType=htContext
+HelpKeyword:string=
+HelpContext:THelpContext=0
+Margins:TMargins=(TMargins @ 03C1F290)
+CustomHint:TCustomHint=(empty)
+ParentCustomHint:Boolean=True
+ComObject:IInterface=
+ComponentCount:Integer=0
+ComponentIndex:Integer=30
+ComponentState:TComponentState=[]
+ComponentStyle:TComponentStyle=[csInheritable]
+DesignInfo:Integer=0
+Owner:TComponent=(TfrmAutoForm @ 0607CEF0)
+VCLComObject:Pointer=(empty)
+Observers:TObservers=(TObservers @ 03C04FF8)
+Name:TComponentName=
+Tag:NativeInt=99
+3TDBCheckBox
+ 
+Checked:Boolean=True
+Field:TField=(TBooleanField @ 0608D5B0)
+State:TCheckBoxState=cbChecked
+Action:TBasicAction=(empty)
+Align:TAlign=alNone
+Alignment:TLeftRight=taRightJustify
+AllowGrayed:Boolean=False
+Anchors:TAnchors=[akLeft,akTop]
+BiDiMode:TBiDiMode=bdLeftToRight
+Caption:TCaption=
+Color:TColor=-16777201
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C1F0)
+Ctl3D:Boolean=True
+DataField:string=ativo
+DataSource:TDataSource=(TDataSource @ 03BCF640)
+DragCursor:TCursor=-12
+DragKind:TDragKind=dkDrag
+DragMode:TDragMode=dmManual
+Enabled:Boolean=True
+Font:TFont=(TFont @ 03B48F90)
+ParentBiDiMode:Boolean=True
+ParentColor:Boolean=True
+ParentCtl3D:Boolean=True
+ParentFont:Boolean=True
+ParentShowHint:Boolean=True
+PopupMenu:TPopupMenu=(empty)
+ReadOnly:Boolean=False
+ShowHint:Boolean=True
+TabOrder:TTabOrder=1
+TabStop:Boolean=True
+ValueChecked:string=True
+ValueUnchecked:string=False
+Visible:Boolean=True
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+WordWrap:Boolean=False
+OnClick:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnContextPopup:TContextPopupEvent = procedure(Sender: TObject; MousePos: TPoint; var Handled: Boolean) of object=(empty)
+OnDragDrop:TDragDropEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer) of object=(empty)
+OnDragOver:TDragOverEvent = procedure(Sender: TObject; Source: TObject; X: Integer; Y: Integer; State: TDragState; var Accept: Boolean) of object=(empty)
+OnEndDock:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEndDrag:TEndDragEvent = procedure(Sender: TObject; Target: TObject; X: Integer; Y: Integer) of object=(empty)
+OnEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnExit:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnKeyDown:TKeyEvent = procedure(Sender: TObject; var Key: Word; Shift: TShiftState) of object=(empty)
+OnKeyPress:TKeyPressEvent = procedure(Sender: TObject; var Key: Char) of object=(empty)
+OnKeyUp:TKeyEvent = procedure(Sender: TObject; var Key: Word; Shift: TShiftState) of object=(empty)
+OnMouseActivate:TMouseActivateEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer; HitTest: Integer; var MouseActivate: TMouseActivate) of object=(empty)
+OnMouseDown:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseEnter:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseLeave:TNotifyEvent = procedure(Sender: TObject) of object=(empty)
+OnMouseMove:TMouseMoveEvent = procedure(Sender: TObject; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnMouseUp:TMouseEvent = procedure(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X: Integer; Y: Integer) of object=(empty)
+OnStartDock:TStartDockEvent = procedure(Sender: TObject; var DragObject: TDragDockObject) of object=(empty)
+OnStartDrag:TStartDragEvent = procedure(Sender: TObject; var DragObject: TDragObject) of object=(empty)
+TabStop:Boolean=True
+DockClientCount:Integer=0
+DockSite:Boolean=False
+DockManager:IDockManager=(empty)
+DoubleBuffered:Boolean=False
+AlignDisabled:Boolean=False
+MouseInClient:Boolean=False
+VisibleDockClientCount:Integer=0
+Brush:TBrush=(TBrush @ 03C01320)
+ControlCount:Integer=0
+Handle:HWND=269364
+Padding:TPadding=(TPadding @ 0605C268)
+ParentDoubleBuffered:Boolean=True
+ParentWindow:HWND=0
+Showing:Boolean=True
+TabOrder:TTabOrder=1
+TabStop:Boolean=True
+UseDockManager:Boolean=False
+Enabled:Boolean=True
+Action:TBasicAction=(empty)
+Align:TAlign=alNone
+Anchors:TAnchors=[akLeft,akTop]
+BiDiMode:TBiDiMode=bdLeftToRight
+BoundsRect:TRect=(record)
+ClientHeight:Integer=24
+ClientOrigin:TPoint=(record)
+ClientRect:TRect=(record)
+ClientWidth:Integer=28
+Constraints:TSizeConstraints=(TSizeConstraints @ 0605C1F0)
+ControlState:TControlState=[]
+ControlStyle:TControlStyle=[csSetCaption,csDoubleClicks,csReplicatable]
+CurrentPPI:Integer=120
+DockOrientation:TDockOrientation=doNoOrient
+ExplicitLeft:Integer=320
+ExplicitTop:Integer=36
+ExplicitWidth:Integer=28
+ExplicitHeight:Integer=24
+Floating:Boolean=False
+FloatingDockSiteClass:TWinControlClass=(class 'TCustomDockForm' @ 00623DA0)
+HostDockSite:TWinControl=(empty)
+LRDockWidth:Integer=28
+ScaleFactor:Single=1,25
+ShowHint:Boolean=True
+TBDockHeight:Integer=24
+Touch:TTouchManager=(TTouchManager @ 0605C240)
+UndockHeight:Integer=24
+UndockWidth:Integer=28
+Visible:Boolean=True
+WindowProc:TWndMethod = procedure(var Message: TMessage) of object=(method code=006AE534, data=03BD8250)
+Parent:TWinControl=(TPanel @ 03BD6B50)
+StyleElements:TStyleElements=[seFont,seClient,seBorder]
+OnGesture:TGestureEvent = procedure(Sender: TObject; const EventInfo: TGestureEventInfo; var Handled: Boolean) of object=(empty)
+AlignWithMargins:Boolean=False
+Left:Integer=320
+Top:Integer=36
+Width:Integer=28
+Height:Integer=24
+Cursor:TCursor=0
+Hint:string=
+HelpType:THelpType=htContext
+HelpKeyword:string=
+HelpContext:THelpContext=0
+Margins:TMargins=(TMargins @ 0605C218)
+CustomHint:TCustomHint=(empty)
+ParentCustomHint:Boolean=True
+ComObject:IInterface=
+ComponentCount:Integer=0
+ComponentIndex:Integer=32
+ComponentState:TComponentState=[]
+ComponentStyle:TComponentStyle=[csInheritable]
+DesignInfo:Integer=0
+Owner:TComponent=(TfrmAutoForm @ 0607CEF0)
+VCLComObject:Pointer=(empty)
+Observers:TObservers=(TObservers @ 03C05028)
+Name:TComponentName=
+Tag:NativeInt=0

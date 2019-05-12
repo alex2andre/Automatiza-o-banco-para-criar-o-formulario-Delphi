@@ -83,7 +83,7 @@ begin
   Form.AddStringField('TIPO','TIPO',40);
   Form.AddDateField('DATA_VENCIMENTO','DATA_VENCIMENTO');
   Form.AddDateField('DATA_PAGAMENTO','DATA_PAGAMENTO');
-  Form.AddFloatField('VALOR','VALOR',40,tfFMTBCD);
+  Form.AddFloatField('VALOR','VALOR',40, tfBCD);
   Form.AddStringField('OBSERVACAO','OBSERVACAO',40);
   Form.AddLookupField('CODIGO_CATEGORIA','CATEGORIA','CODIGO',  'NOME','SELECT CODIGO, NOME FROM CATEGORIA',50);
 
@@ -96,10 +96,10 @@ function TFactoryForm.CreateFormPessoa: TfrmAutoForm;
 var
   Form: TfrmAutoForm;
 
-
 begin
  Form := TfrmAutoForm.Create(nil, 'pessoa','pessoa','codigo','','');
   form.AddStringField('nome','Informe seu nome aqui',40,'',true);
+  form.AddBooleanField('ativo','Ativo',4);
   Result := Form;end;
 
 function TFactoryForm.CreateFormProduto: TfrmAutoForm;

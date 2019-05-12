@@ -20,7 +20,6 @@ inherited frmAutoForm: TfrmAutoForm
   inherited Pc: TPageControl
     Width = 956
     Height = 515
-    ActivePage = TbConsulta
     ExplicitWidth = 956
     ExplicitHeight = 515
     inherited TbCadastro: TTabSheet
@@ -34,6 +33,8 @@ inherited frmAutoForm: TfrmAutoForm
       end
     end
     inherited TbConsulta: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 6
       ExplicitWidth = 948
       ExplicitHeight = 505
       inherited PnConsulta: TPanel
@@ -54,40 +55,24 @@ inherited frmAutoForm: TfrmAutoForm
   end
   inherited dsAutoForm: TDataSource
     DataSet = cdsAutoForm
-    Left = 432
+    Left = 488
     Top = 272
   end
   inherited ActionList1: TActionList
     Left = 560
   end
-  object sdsMetaData: TSimpleDataSet [4]
-    Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    PacketRecords = 0
-    Params = <>
-    Left = 312
-    Top = 152
-  end
-  object sqAutoForm: TSQLDataSet [5]
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = DM.DBConn
-    Left = 296
+  object dspAutoForm: TDataSetProvider [4]
+    DataSet = qryAutoForm
+    Left = 328
     Top = 272
   end
-  object dspAutoForm: TDataSetProvider [6]
-    DataSet = sqAutoForm
-    Left = 352
-    Top = 272
-  end
-  object cdsAutoForm: TClientDataSet [7]
+  object cdsAutoForm: TClientDataSet [5]
     Aggregates = <>
     Params = <>
     ProviderName = 'dspAutoForm'
     BeforePost = cdsAutoFormBeforePost
     OnNewRecord = cdsAutoFormNewRecord
-    Left = 392
+    Left = 408
     Top = 272
   end
   inherited ImageList1: TImageList
@@ -96,5 +81,26 @@ inherited frmAutoForm: TfrmAutoForm
   inherited SaveDlgExport: TSaveDialog
     Left = 480
     Top = 344
+  end
+  object mtMetaData1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 212
+    Top = 151
+  end
+  object qryAutoForm: TFDQuery
+    Connection = DM.FDConn
+    Left = 188
+    Top = 239
+  end
+  object FDQuery1: TFDQuery
+    Connection = DM.FDConn
+    Left = 188
+    Top = 303
   end
 end

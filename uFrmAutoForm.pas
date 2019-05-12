@@ -7,7 +7,11 @@ uses
   Dialogs, uFrmBaseAutoForm, FMTBcd, DB, DBClient, Provider, SqlExpr,
   StdCtrls, Buttons, DBCtrls, Grids, DBGrids, ExtCtrls, SimpleDS, ComCtrls,
   ToolWin, ImgList, ActnList, WideStrings,
-  uDM, System.ImageList, System.Actions,uSalvaForm;
+  uDM, System.ImageList, System.Actions,uSalvaForm, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet, FireDAC.DApt, FireDAC.Phys.MySQLDef, FireDAC.Phys,
+  FireDAC.Phys.MySQL;
 
 const
   MARGIN = 10;
@@ -22,10 +26,11 @@ type
 
 type
   TfrmAutoForm = class(TfrmBaseAutoForm)
-    sdsMetaData: TSimpleDataSet;
-    sqAutoForm: TSQLDataSet;
     dspAutoForm: TDataSetProvider;
     cdsAutoForm: TClientDataSet;
+    mtMetaData1: TFDMemTable;
+    qryAutoForm: TFDQuery;
+    FDQuery1: TFDQuery;
     procedure FormShow(Sender: TObject);
     procedure cdsAutoFormNewRecord(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
@@ -44,6 +49,8 @@ type
     procedure AddKeyField(const KeyField: string; const ToDataSet: TDataSet);
     procedure SetUpWithReadMetaData(const Field: TField);
     procedure AddControl(const Control: TControl; const DisplayLabel: string);
+    function InternalAddBooleanField(const FieldName, DisplayFieldName: string;
+                                 DisplayWidth: Integer; const ToDataSet: TDataSet;  SetFcous: Boolean = False): TControl;
     function InternalAddStringField(const FieldName, DisplayFieldName: string;
                                  DisplayWidth: Integer; const ToDataSet: TDataSet; Mascara: String = ''; SetFcous: Boolean = False): TControl;
     function InternalAddDateField(const FieldName, DisplayFieldName: string;
@@ -73,6 +80,7 @@ type
                                  DisplayWidth: Integer): TControl;
     function CreateLookupControl(const Field: TField; const KeyField, ListField,
                                  SQL: string): TControl;
+    function CreateCheckControl(const Field: TField; const KeyField: string): TControl;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent; const TableName, TableDisplayName,
@@ -83,6 +91,8 @@ type
     function GetKeyField: string;override;
     procedure SetDefaultValue(const FieldName: string; const Value: Variant);
     procedure SetLookUpValue(const KeyField: string; const KeyValue: Variant);
+    function AddBooleanField(const FieldName, DisplayFieldName: string;
+                             DisplayWidth: Integer;  SetFocus: Boolean = False): TControl;
     function AddStringField(const FieldName, DisplayFieldName: string;
                              DisplayWidth: Integer; Mascara: String = ''; SetFocus: Boolean = False): TControl;
     function AddIntegerField(const FieldName, DisplayFieldName: string;
@@ -100,6 +110,8 @@ type
     function AddLookupField(const FieldName, DisplayFieldName, KeyField,
                              ListField, SQL: string; DisplayWidth: Integer): TControl; overload;
     function AddLookupField(const FieldName, DisplayFieldName, KeyField,
+                             ListField, SQL: string; DisplayWidth: Integer; Dominio:Boolean) :TControl; overload;
+    function AddCheckField(const FieldName, DisplayFieldName, KeyField,
                              ListField, SQL: string; DisplayWidth: Integer; Dominio:Boolean) :TControl; overload;
 
     function AddSpace(DisplayWidth: Integer): TControl;
@@ -149,13 +161,27 @@ begin
   FKeyField := KeyField;
   FTableDisplayName := TableDisplayName;
 
-  sqAutoForm.CommandText := SQL;
+  qryAutoForm.SQL.Add(Sql);
 
-  sdsMetaData.DataSet.CommandText := SQL;
+  qryAutoForm.Active:=True;
 
-  sdsMetaData.Open;
+  FDQuery1.SQL.Add(sql);
+  FDQuery1.Active:=True;
+//  sqAutoForm.CommandText := SQL;
 
-  AddKeyField(KeyField, sqAutoForm);
+
+  //sdsMetaData.DataSet.CommandText := SQL;
+  //mtMetaData.CommandText:=SQL;
+
+
+  //miqMetadata.MetaInfoKind:=mkTableFields;
+  // miqMetadata.ObjectName:= 'lancamento';
+  //miqMetadata.Open('lancamento');
+
+//  mtMetaData.Open;
+ // sdsMetaData.Open;
+
+  AddKeyField(KeyField, qryAutoForm);// sqAutoForm);
   AddKeyField(KeyField, cdsAutoForm);
 
   FCurHeight := MARGIN;
@@ -163,20 +189,40 @@ begin
   FMaxHeight := MARGIN;
 end;
 
+function TfrmAutoForm.CreateCheckControl(const Field: TField; const KeyField
+  : string): TControl;
+var
+  AControl: TDBCheckBox;
+begin
+
+  AControl := TDBCheckBox.Create(Self);
+  AControl.Parent := pnlControls;
+  AControl.Width := Field.DisplayWidth * 6;
+  AControl.DataSource := dsAutoForm;
+  AControl.DataField := Field.FieldName;
+  //AControl.BevelKind := bkFlat;
+  AControl.Height := 24;
+  AddControl(AControl, Field.DisplayLabel);
+
+  Result := AControl;
+end;
+
+
+
 function TfrmAutoForm.CreateComboControl(const Sql, DisplayFieldName: string;
   DisplayWidth: Integer): TControl;
 var
   AControl: TComboBox;
-  ASql: TSimpleDataSet;
+  ASql: TFDQuery;
 begin
   AControl := TComboBox.Create(Self);
   AControl.Width := DisplayWidth * 6;
   AControl.BevelKind := bkFlat;
   AControl.Height := 24;
-  ASql := TSimpleDataSet.Create(Self);
+  ASql := TFDQuery.Create(Self);
   { TODO 5 -oRodrigo -cMelhorias : Chamar Singleton Aqui }
-  ASql.Connection := DM.DBConn;
-  ASql.DataSet.CommandText := Sql;
+  ASql.Connection := DM.FDConn;
+  ASql.SQL.Add( Sql);
   ASql.Open;
   ASql.First;
   AControl.Parent := pnlControls;
@@ -221,7 +267,7 @@ function TfrmAutoForm.AddLookupField(const FieldName, DisplayFieldName,
   KeyField, ListField, SQL: string; DisplayWidth: Integer; Dominio: Boolean): TControl;
 begin
   InternalAddLookupField(FieldName, DisplayFieldName, KeyField, ListField, SQL,
-    DisplayWidth, sqAutoForm, Dominio);
+    DisplayWidth, qryAutoForm, Dominio);
  Result := InternalAddLookupField(FieldName, DisplayFieldName, KeyField, ListField, SQL,
     DisplayWidth, cdsAutoForm, Dominio);
 
@@ -230,14 +276,17 @@ end;
 function TfrmAutoForm.AddMemoField(const FieldName, DisplayFieldName: string;
   DisplayWidth, DisplayHeight: Integer; StringField: Boolean): TControl;
 begin
-  InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, sqAutoForm, StringField);
+  InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, qryAutoForm, StringField);
   Result := InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, cdsAutoForm, StringField);
 end;
 
 procedure TfrmAutoForm.SetUpWithReadMetaData(const Field: TField);
 begin
-  Field.Size     := sdsMetadata.FieldByName(Field.FieldName).Size;
-  Field.Required := sdsMetadata.FieldByName(Field.FieldName).Required;
+
+
+  Field.Size     := FDQuery1.FieldByName(Field.FieldName).Size;
+  Field.Required := FDQuery1.FieldByName(Field.FieldName).Required;
+//  miqMetadata.Active:=false;
 
   if Field.FieldName = FKeyField then
   begin
@@ -262,8 +311,9 @@ end;
 function TfrmAutoForm.AddStringField(const FieldName,
   DisplayFieldName: string; DisplayWidth: Integer; Mascara: String = ''; SetFocus: Boolean = False): TControl;
 begin
-  InternalAddStringField(FieldName, DisplayFieldName, DisplayWidth, sqAutoForm);
+  InternalAddStringField(FieldName, DisplayFieldName, DisplayWidth, qryAutoForm);
   Result := InternalAddStringField(FieldName, DisplayFieldName, DisplayWidth, cdsAutoForm, Mascara, SetFocus);
+
 end;
 
 function TfrmAutoForm.InternalAddStringField(const FieldName,
@@ -320,6 +370,20 @@ begin
   end;
 end;
 
+function TfrmAutoForm.AddBooleanField(const FieldName, DisplayFieldName: string;
+  DisplayWidth: Integer; SetFocus: Boolean): TControl;
+begin
+  InternalAddBooleanField(FieldName, DisplayFieldName, DisplayWidth, qryAutoForm);
+  Result := InternalAddBooleanField(FieldName, DisplayFieldName, DisplayWidth, cdsAutoForm, SetFocus);
+
+end;
+
+function TfrmAutoForm.AddCheckField(const FieldName, DisplayFieldName, KeyField,
+  ListField, SQL: string; DisplayWidth: Integer; Dominio: Boolean): TControl;
+begin
+
+end;
+
 function TfrmAutoForm.AddComboBox(const Sql, DisplayFieldName: string;
   DisplayWidth: Integer): TControl;
 begin
@@ -373,35 +437,38 @@ end;
 function TfrmAutoForm.AddIntegerField(const FieldName,
   DisplayFieldName: string; DisplayWidth: Integer): TControl;
 begin
-  InternalAddIntegerField(FieldName, DisplayFieldName, DisplayWidth, sqAutoForm);
+  InternalAddIntegerField(FieldName, DisplayFieldName, DisplayWidth, qryAutoForm);
   Result := InternalAddIntegerField(FieldName, DisplayFieldName, DisplayWidth, cdsAutoForm);
 end;
 
 function TfrmAutoForm.AddFloatField(const FieldName,
   DisplayFieldName: string; DisplayWidth: Integer; TipoFloat: TTipoFloat; Currency: Boolean = False): TControl;
 begin
-  InternalAddFloatField(FieldName, DisplayFieldName, DisplayWidth, sqAutoForm, TipoFloat);
+
+  InternalAddFloatField(FieldName, DisplayFieldName, DisplayWidth, qryAutoForm, TipoFloat);
+
   Result := InternalAddFloatField(FieldName, DisplayFieldName, DisplayWidth, cdsAutoForm, TipoFloat, Currency);
+
 end;
 
 function TfrmAutoForm.AddMemoField(const FieldName,
   DisplayFieldName: string; DisplayWidth, DisplayHeight: Integer): TControl;
 begin
-  InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, sqAutoForm);
+  InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, qryAutoForm);
   Result := InternalAddMemoField(FieldName, DisplayFieldName, DisplayWidth, DisplayHeight, cdsAutoForm);
 end;
 
 function TfrmAutoForm.AddDateField(const FieldName,
   DisplayFieldName: string): TControl;
 begin
-  InternalAddDateField(FieldName, DisplayFieldName, sqAutoForm);
+  InternalAddDateField(FieldName, DisplayFieldName, qryAutoForm);
   Result := InternalAddDateField(FieldName, DisplayFieldName, cdsAutoForm);
 end;
 
 function TfrmAutoForm.AddTimeField(const FieldName,
   DisplayFieldName: string): TControl;
 begin
-  InternalAddTimeField(FieldName, DisplayFieldName, sqAutoForm);
+  InternalAddTimeField(FieldName, DisplayFieldName, qryAutoForm);
   Result := InternalAddTimeField(FieldName, DisplayFieldName, cdsAutoForm);
 end;
 
@@ -478,6 +545,20 @@ var
   AddedKeyField: TField;
 begin
   Result := nil;
+  //ToDataSet.Open;
+
+
+  { case FDQuery1.FindField(FieldName).DataType of
+  ftInteger:AddedKeyField := TIntegerField.Create(ToDataSet);
+  ftLargeint:AddedKeyField := TLargeintField.Create(ToDataSet);
+  ftBCD: AddedKeyField := TBCDField.Create(ToDataSet);
+
+  end;}
+ // ToDataSet.Close;
+
+ //FDQuery1.Active:=False;
+// AddedKeyField:=  FDQuery1.FindField(FieldName).;
+// FDQuery1.Active:=true;
   case TipoFloat of
     tfFloat:    AddedKeyField := TFloatField.Create(ToDataSet);
     tfBCD:      AddedKeyField := TBCDField.Create(ToDataSet);
@@ -543,12 +624,61 @@ begin
   Result := AControl;
 end;
 
+function TfrmAutoForm.InternalAddBooleanField(const FieldName,
+  DisplayFieldName: string; DisplayWidth: Integer; const ToDataSet: TDataSet;
+  SetFcous: Boolean): TControl;
+var
+  AddedKeyField,temp: TField;
+  AControl: TDBCheckBox;
+begin
+  Result := nil;
+ // ToDataSet.Open;
+  temp:=FDQuery1.FindField(FieldName);
+
+  case temp.DataType of
+  ftInteger:AddedKeyField := TIntegerField.Create(ToDataSet);
+  ftLargeint:AddedKeyField := TLargeintField.Create(ToDataSet);
+  ftBoolean:AddedKeyField := TBooleanField.Create(ToDataSet);
+  end;
+ // ToDataSet.Close;
+
+  //AddedKeyField := TIntegerField.Create(ToDataSet);
+  AddedKeyField.Visible := False;
+  AddedKeyField.FieldName := FieldName;
+  AddedKeyField.DisplayLabel := DisplayFieldName;
+  AddedKeyField.DisplayWidth := DisplayWidth;
+  SetUpWithReadMetaData(AddedKeyField);
+  AddedKeyField.DataSet := ToDataSet;
+
+  if ToDataSet = cdsAutoForm then
+  begin
+    AControl := (CreateCheckControl(AddedKeyField, FieldName) as TDBCheckBox);
+
+   { AddedKeyField := TStringField.Create(ToDataSet);
+    AddedKeyField.FieldKind := fkLookup;
+    AddedKeyField.FieldName := 'LOOKUP'+ListField+FieldName;
+    AddedKeyField.DisplayLabel := DisplayFieldName;
+    AddedKeyField.DisplayWidth := DisplayWidth;
+    AddedKeyField.Size := AControl.ListSource.DataSet.FieldByName(ListField).Size;
+    AddedKeyField.LookupDataSet := AControl.ListSource.DataSet;
+    AddedKeyField.LookupKeyFields := KeyField;
+    AddedKeyField.LookupResultField := ListField;
+    AddedKeyField.KeyFields := FieldName;
+    AddedKeyField.Lookup := True;
+    AddedKeyField.DataSet := ToDataSet;}
+  end;
+  Result := AControl;
+end;
+
 function TfrmAutoForm.InternalAddDateField(const FieldName,
   DisplayFieldName: string; const ToDataSet: TDataSet): TControl;
 var
   AddedKeyField: TField;
 begin
   Result := nil;
+
+
+
   AddedKeyField := TDateField.Create(ToDataSet);
   AddedKeyField.FieldName := FieldName;
   AddedKeyField.DisplayLabel := DisplayFieldName;
@@ -598,7 +728,7 @@ function TfrmAutoForm.AddLookupField(const FieldName, DisplayFieldName,
   KeyField, ListField, SQL: string; DisplayWidth: Integer): TControl;
 begin
   InternalAddLookupField(FieldName, DisplayFieldName, KeyField, ListField, SQL,
-    DisplayWidth, sqAutoForm);
+    DisplayWidth, qryAutoForm);
   Result := InternalAddLookupField(FieldName, DisplayFieldName, KeyField, ListField, SQL,
     DisplayWidth, cdsAutoForm);
 end;
@@ -651,14 +781,14 @@ function TfrmAutoForm.CreateLookupControl(const Field: TField;
   const KeyField, ListField, SQL: string): TControl;
 var
   AListSource: TDataSource;
-  ADataSet: TSimpleDataSet;
+  ADataSet: TFDQuery;
   AControl: TDBLookupComboBox;
 begin
   AListSource := TDataSource.Create(Self);
-  ADataSet := TSimpleDataSet.Create(Self);
+  ADataSet := TFDQuery.Create(Self);
   { TODO 5 -oRodrigo -cMelhorias : Chamar Singleton Aqui }
-  ADataSet.Connection := DM.DBConn;
-  ADataSet.DataSet.CommandText := SQL;
+  ADataSet.Connection := DM.FDConn;
+  ADataSet.SQL.Add(  SQL);
   ADataSet.Open;
 
   AListSource.DataSet := ADataSet;
@@ -691,10 +821,10 @@ procedure TfrmAutoForm.SetLookUpValue(const KeyField: string;
 var
   sdsKeyField, cdsKeyField: TField;
 begin
-  sdsKeyField := TIntegerField.Create(sqAutoForm);
+  sdsKeyField := TIntegerField.Create(qryAutoForm);
   sdsKeyField.FieldName := KeyField;
   SetUpWithReadMetaData(sdsKeyField);
-  sdsKeyField.DataSet := sqAutoForm;
+  sdsKeyField.DataSet := qryAutoForm;
 
   cdsKeyField := TIntegerField.Create(cdsAutoForm);
   cdsKeyField.FieldName := KeyField;
@@ -711,7 +841,8 @@ begin
   inherited;
   //sdsMetaData.Connection := Conexao;
   { TODO 5 -oRodrigo -cMelhorias : Chamar Singleton Aqui }
-  sdsMetaData.Connection := DM.DBConn;
+  //sdsMetaData.Connection := DM.DBConn;
+  FGeraForm:=GeraForm.Create();
 
 
 end;
@@ -720,28 +851,30 @@ procedure TfrmAutoForm.FormShow(Sender: TObject);
 var
   i,p,l,f: Integer;
   s:TStringList;
-  ds:TSQLDataSet;
+  ds:TFDQuery;
   nomeTabela:string;
 begin
   inherited;
 
    for I := 0 to Self.ComponentCount-1 do
     begin
-      if Self.Components[i] is TSQLDataSet then
+      if Self.Components[i] is TFDQuery then
       begin
-        ds:=(Self.Components[i] as TSQLDataSet);
-        p:=Pos('FROM',UpperCase( ds.CommandText));
-        l:=Length(ds.CommandText);
-        f:= Length('FROM');
-        nomeTabela:=Copy( ds.CommandText,p+f+1,l-p-f);
+        ds:=(Self.Components[i] as TFDQuery);
+        nomeTabela:=FGeraForm.NomeTAbela(ds.SQL.Text);
+        Break;
       end;
     end;
 
-  FGeraForm:=GeraForm.Create('u'+nometabela,nomeTabela);
-
+      FGeraForm.NomeUnit:= 'u'+nometabela;
+      FGeraForm.NomeFomulario:=nomeTabela;
 
   pnlControls.Height := FMaxHeight;
   s:=TStringList.Create;
+
+  fGeraForm.KeyField:=FKeyField;
+  fGeraForm.TableDisplayName:=FTableDisplayName;
+
 
   FGeraForm.CorriginomeForm;
 
@@ -751,10 +884,10 @@ begin
   begin
     s.Add(i.ToString+ Self.Components[i].ClassName+' = '+Self.Components[i].Name);
 
-      if Self.Components[i] is TSQLDataSet then
+      if Self.Components[i] is TFDQuery then
       begin
-        FGeraForm.InsertSQLsqAutoForm(TSQLDataSet( Self.Components[i]));
-        FGeraForm.InsertSQLsdsMetaDataForm(TSQLDataSet( Self.Components[i]));
+        FGeraForm.InsertSQLsqAutoForm(TFDQuery( Self.Components[i]));
+        //FGeraForm.InsertSQLsdsMetaDataForm(TFDQuery( Self.Components[i]));
       end;
 
 
@@ -788,6 +921,10 @@ begin
         FGeraForm.CarregarLookupComboBox(TDBLookupComboBox( pnlControls.Controls[i]),'dsAutoForm');
       end;
 
+      if pnlControls.Controls[i] is TDBCheckBox then
+      begin
+        FGeraForm.CarregarTDBCheckBox(TDBCheckBox( pnlControls.Controls[i]),'dsAutoForm');
+      end;
 
 
 
